@@ -28,7 +28,7 @@
  * @param data The value of the cookie to be set
  */
 function setCookie( cookie_name, data ) {
-	var domain = mw.config.get("wgServer").split("//")[1];
+	var domain = wgServer.split("//")[1];
 	document.cookie =
 		cookie_name + "=" + data +
 		"; max-age=" + 60*60*24*150 +
@@ -99,7 +99,7 @@ var chatOptions = {
 		surroundColor: getCookie("customisation", 10),
 		selfPostColor: getCookie("customisation", 11),
 		backgroundColor: getCookie("customisation", 0),
-		modalIcon: "http://www.derehamreclaim.co.uk/_images-pages/icon-hammerSpanner.jpg"
+                modalIcon: "http://www.derehamreclaim.co.uk/_images-pages/icon-hammerSpanner.jpg"
 	},
 	modules: {
 		chatHacks: {
@@ -127,10 +127,6 @@ var chatOptions = {
 			enabled: isEnabled("multiKick"),
 			loaded: false,
 			load: function () {
-				var groups = mw.config.get("wgUserGroups");
-				if ((!groups.indexOf("chatmoderator") && !groups.indexOf("sysop") && !groups.indexOf("staff") && !groups.indexOf("helper") && !groups.indexOf("vstf")) || $("multiKickerButton").length) {
-					return; // Do not load
-				}
 				importScriptPage("User:Madnessfan34537/multikick.js","cod");
 				$('<a id="multiKickerButton" class="wikia-button" href="javascript:showPopup()" style="position:absolute; right:55px; top:22px;">Multikick</a>').appendTo('.Write'); // to prevent issues with the button not loading
 				this.loaded = true;
@@ -159,7 +155,7 @@ var chatOptions = {
 			enabled: isEnabled("ignoreURL"),
 			loaded: false,
 			load: function () {
-				$('head').append('<style type="text/css">li[data-user="' + (window.ignoreBot || "URL") + '"] {display:none;}</style>');
+				$('head').append('<style type="text/css">li[data-user="URL"] {display:none;}</style>');
 				this.loaded = true;
 			}
 		},
@@ -204,7 +200,8 @@ function updateChatSkin() {
  * Displays the options window
  */
 function openOptions() {
-	var $optionsWindowHTML = $.showCustomModal( "Options", '<form method="" name="" class="WikiaForm"><fieldset><p style="font-size:120%; font-weight:bold; font-style:italic;">Colour changes</p><p style="font-size:80%;">Enter a <a href="http://www.w3schools.com/html/html_colornames.asp" target="_blank">colour name</a> or <a href="http://html-color-codes.info/" target="_blank">colour hex</a><p>Chat background&nbsp;<input type="text" name="backgroundColourinput" id="backgroundColourinput" value="' + chatOptions.look.backgroundColor + '"/></p><br/><p>Self-post background&nbsp;<input type="text" name="selfPostColourinput" id="selfPostColourinput" value="' + chatOptions.look.selfPostColor + '"/></p><br/><p>Surround&nbsp;<input type="text" name="surroundColourinput" id="surroundColourinput" value="' + chatOptions.look.surroundColor + '"/></p><br/><p>Font colour&nbsp;<input type="text" name="fontColourinput" id="fontColourinput" value="' + chatOptions.look.fontColor + '"/></p><br/><p style="font-size:120%; font-weight:bold; font-style:italic;">Font</p><p>Font family <select id="fontList"><option value="arial" style="font-family:arial;">Arial</option><option value="courier new" style="font-family:courier new;">Courier new</option><option value="georgia" style="font-family:georgia;">Georgia</option><option value="palatino linotype" style="font-family:palatino linotype;">Palatino linotype</option><option value="Comic Sans MS" style="font-family:Comic Sans MS;">Comic sans</option><option value="tahoma" style="font-family:tahoma;">Tahoma</option><option value="Trebuchet MS" style="font-family:Trebuchet MS;">Trebuchet MS</option><option value="Verdana" style="font-family:Verdana;">Verdana</option><option value="Lucida Console" style="font-family:Lucida Console;">Lucida Console</option></select></p><br/><p style="font-size:120%; font-weight:bold; font-style:italic;">Added functionality</p><input type="checkbox" name="chatHacks" value="chatHacks" id="chatHacks"/> Enable <a href="http://c.wikia.com/wiki/User:Monchoman45/ChatHacks.js" target="_blank">chathacks</a>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="multiPM" value="multiPM" id="multiPM"/> Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/multipm.js" target="_blank">multi PM</a><br/><input type="checkbox" name="tabComplete" value="tabComplete" id="tabComplete"/>Enable <a href="http://runescape.wikia.com/wiki/User:Joeytje50/tabinsert.js" target="_blank">tab complete</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="searchBar" value="searchBar" id="searchBar"/>Enable <a href="http://callofduty.wikia.com/wiki/MediaWiki:Chat.js/searchbar.js" target="_blank">search bar</a><br/><input type="checkbox" name="multiKick" value="multiKick" id="multiKick" />Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/multikick.js" target="_blank">multi kick</a>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="ignoreURL" value="ignoreURL" id="ignoreURL"/>Ignore ' + (window.ignoreBot || 'URL') + ' in main chat<br /><input type="checkbox" name="stopSideScroll" value="stopSideScroll" id="stopSideScroll"/>Stop the sidescroll bar to appear after someone spams</fieldset></form>', {
+	// TODO: Kill this with fire? There has to be a better way to do this - perhaps use $.showModal
+	var $optionsWindowHTML = $.showCustomModal( "Options", '<form method="" name="" class="WikiaForm "><fieldset><p style="font-size:120%; font-weight:bold; font-style:italic;">Colour changes</p><p style="font-size:80%;">Enter a <a href="http://www.w3schools.com/html/html_colornames.asp" target="_blank">colour name</a> or <a href="http://html-color-codes.info/" target="_blank">colour hex</a><p>Chat background&nbsp;<input type="text" name="backgroundColourinput" id="backgroundColourinput" value="' + chatOptions.look.backgroundColor + '"/></p><br/><p>Self-post background&nbsp;<input type="text" name="selfPostColourinput" id="selfPostColourinput" value="' + chatOptions.look.selfPostColor + '"/></p><br/><p>Surround&nbsp;<input type="text" name="surroundColourinput" id="surroundColourinput" value="' + chatOptions.look.surroundColor + '"/></p><br/><p>Font colour&nbsp;<input type="text" name="fontColourinput" id="fontColourinput" value="' + chatOptions.look.fontColor + '"/></p><br/><p style="font-size:120%; font-weight:bold; font-style:italic;">Font</p><p>Font family <select id="fontList"><option value="arial" style="font-family:arial;">Arial</option><option value="courier new" style="font-family:courier new;">Courier new</option><option value="georgia" style="font-family:georgia;">Georgia</option><option value="palatino linotype" style="font-family:palatino linotype;">Palatino linotype</option><option value="Comic Sans MS" style="font-family:Comic Sans MS;">Comic sans</option><option value="tahoma" style="font-family:tahoma;">Tahoma</option><option value="Trebuchet MS" style="font-family:Trebuchet MS;">Trebuchet MS</option><option value="Verdana" style="font-family:Verdana;">Verdana</option><option value="Lucida Console" style="font-family:Lucida Console;">Lucida Console</option></select></p><br/><p style="font-size:120%; font-weight:bold; font-style:italic;">Added functionality</p><input type="checkbox" name="chatHacks" value="chatHacks" id="chatHacks"/> Enable <a href="http://c.wikia.com/wiki/User:Monchoman45/ChatHacks.js" target="_blank">chathacks</a>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="multiPM" value="multiPM" id="multiPM"/> Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/multipm.js" target="_blank">multi PM</a><br/><input type="checkbox" name="tabComplete" value="tabComplete" id="tabComplete"/>Enable <a href="http://runescape.wikia.com/wiki/User:Joeytje50/tabinsert.js" target="_blank">tab complete</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="searchBar" value="searchBar" id="searchBar"/>Enable <a href="http://callofduty.wikia.com/wiki/MediaWiki:Chat.js/searchbar.js" target="_blank">search bar</a><br/><input type="checkbox" name="multiKick" value="multiKick" id="multiKick" />Enable <a href="http://callofduty.wikia.com/wiki/User:Madnessfan34537/multikick.js" target="_blank">multi kick</a>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="ignoreURL" value="ignoreURL" id="ignoreURL"/>Ignore URL in main chat<br /><input type="checkbox" name="stopSideScroll" value="stopSideScroll" id="stopSideScroll"/>Stop the sidescroll bar to appear after someone spams</fieldset></form>', {
 		id: "optionsWindow",
 	    width: 600,
 	    buttons: [
@@ -212,18 +209,18 @@ function openOptions() {
 			id: "cancel",
 		    message: "Cancel",
 		    handler: function () {
-			    cancelChanges();
+				cancelChanges();
 		    }
 		},
-		    {
-			    id: "updateCookie",
-		    defaultButton: true,
-		    message: "Update!",
-	    	handler: function () {
-			    updateCookie();
+		{
+			id: "updateCookie",
+			defaultButton: true,
+			message: "Update!",
+			handler: function () {
+				updateCookie();
+		    }
 	    }
-	    }
-	]
+		]
 	});
 	$(".close").click(cancelChanges);
 	// Check if various modules have been enabled by the user, and check their boxes if so
@@ -251,19 +248,18 @@ function openOptions() {
 	// Set certain modules' checkboxes to disabled if specific conditions are not met
 	if (!wgUserGroups.indexOf("chatmoderator") && !wgUserGroups.indexOf("sysop") && !wgUserGroups.indexOf("staff") && !wgUserGroups.indexOf("helper") && !wgUserGroups.indexOf("vstf"))
 		$("#multiKick").attr("disabled",true);
-	if (mw.config.get("wgServer") !== "http://callofduty.wikia.com" && typeof window.ignoreBot === "undefined")
+	if (wgServer !== "http://callofduty.wikia.com")
 		$("#ignoreURL").attr("disabled",true);
 		
 	$("select option[value='" + chatOptions.look.fontFamily + "']").attr("selected","selected"); // sets the font selector to the one chosen currently
-	$('body').append('<div style="height: 100%; width: 100%; z-index: 2000000001; opacity: 0.65; display: block;" data-opacity="0.65" class="blackout"></div>');
 }
 
 /**
  * Close the options window without saving any changes
  */
 function cancelChanges() {
-	$('#optionsWindow').remove();
-	$('.blackout').remove();
+	var dialog = $('#optionsWindow');
+	dialog.closeModal();
 }
  
 /**
