@@ -55,7 +55,7 @@ function getCookie(cookie_name, pos) {
             return decodeURIComponent(style_objects[pos]);
         }
     }
-    return -1;
+    return "";
 }
 
 /**
