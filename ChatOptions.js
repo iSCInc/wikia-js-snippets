@@ -226,7 +226,7 @@ function updateCookie() {
     for (m in chatOptions.modules) {
         if (chatOptions.modules.hasOwnProperty(m)) {
             module = chatOptions.modules[m];
-            module.enabled = module.element === undefined && $(module.element).attr("checked");
+            module.enabled = module.element && $(module.element).attr("checked");
         }
     }
 
