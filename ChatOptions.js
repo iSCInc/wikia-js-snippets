@@ -22,7 +22,7 @@
 
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, latedef:true, noarg:true, noempty:true, nonew:true, undef:true, browser:true, devel:true, jquery:true */
 
-/*global importArticle, mw, showPopup */
+/*global importScriptPage, mw, showPopup */
 
 
 /**
@@ -114,7 +114,7 @@ var chatOptions = {
                 if ($("#pingspan").length > 0 || this.loaded) {
                     return;
                 }
-                importArticle({type: "script", articles: ["w:community:User:Monchoman45/ChatHacks.js"]});
+                importScriptPage("User:Monchoman45/ChatHacks.js", "community");
                 this.loaded = true;
             }
         },
@@ -123,7 +123,7 @@ var chatOptions = {
             enabled: isEnabled("tabComplete"),
             loaded: false,
             load: function () {
-                importArticle({type: "script", articles: ["w:runescape:User:Joeytje50/tabinsert.js"]});
+                importScriptPage("User:Joeytje50/tabinsert.js", "runescape");
                 this.loaded = true;
             }
         },
@@ -132,7 +132,7 @@ var chatOptions = {
             enabled: isEnabled("multiKick"),
             loaded: false,
             load: function () {
-                importArticle({type: "script", articles: ["w:callofduty:User:Madnessfan34537/multikick.js"]});
+                importScriptPage("User:Madnessfan34537/multikick.js", "callofduty");
                 $('.Write').append($('<a>').attr({
                     id: 'multiKickerButton',
                     'class': 'wikia-button',
@@ -147,7 +147,7 @@ var chatOptions = {
             enabled: isEnabled("multiPM"),
             loaded: false,
             load: function () {
-                importArticle({type: "script", articles: ["w:callofduty:MediaWiki:Chat.js/multipms.js"]});
+                importScriptPage("MediaWiki:Chat.js/multipms.js", "callofduty");
                 this.loaded = true;
             }
         },
@@ -156,7 +156,7 @@ var chatOptions = {
             enabled: isEnabled("searchBar"),
             loaded: false,
             load: function () {
-                importArticle({type: "script", articles: ["w:callofduty:MediaWiki:Chat.js/searchbar.js"]});
+                importScriptPage("MediaWiki:Chat.js/searchbar.js", "callofduty");
                 this.loaded = true;
             }
         },
